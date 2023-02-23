@@ -138,13 +138,13 @@ if B_generate_results:
 				dist = Hausdorff_dist_two_convex_hulls(
 					Y_true_hull, Y_est_hull)
 				haus_dists_exp[j, k] = dist
-	with open("sensitivity_L="+str(L)+".npy", 'wb') as f:
-		np.savez(f,
-			M_vec_exp=M_vec_exp,
-			M_vec_theo=M_vec_theo,
-			haus_dists_exp=haus_dists_exp,
-			prob_bound_naive=prob_bound_naive,
-			prob_bound_diffeo=prob_bound_diffeo)
+		with open("sensitivity_L="+str(L)+".npy", 'wb') as file:
+			np.savez(file,
+				M_vec_exp=M_vec_exp,
+				M_vec_theo=M_vec_theo,
+				haus_dists_exp=haus_dists_exp,
+				prob_bound_naive=prob_bound_naive,
+				prob_bound_diffeo=prob_bound_diffeo)
 # ----------------------
 
 # ----------------------
@@ -155,9 +155,8 @@ def conf_bounds_of_percentage(percentage, n, z=1.96):
     return (z*np.sqrt(percentage*(1-percentage)/n))
 
 for L in L_vec:
-	with open("sensitivity_L="+str(L)+".npy", 'rb') as f:
-		data = np.load(f)
-		L_vec = data['L_vec']
+	with open("sensitivity_L="+str(L)+".npy", 'rb') as file:
+		data = np.load(file)
 		M_vec_exp = data['M_vec_exp']
 		M_vec_theo = data['M_vec_theo']
 		haus_dists_exp = data['haus_dists_exp']
@@ -179,7 +178,7 @@ for L in L_vec:
 	M_max = 30000
 	plt.plot(np.append(M_vec_exp, M_max),
 		np.append(dists_exp_prob_violations, 1), 
-		color='b', linewidth=3, label="Empirical")
+		color='b', linewidth=3, label="Average")
 	ci = conf_bounds_of_percentage(dists_exp_prob_violations, N_runs)
 	plt.fill_between(M_vec_exp,
 		np.maximum(dists_exp_prob_violations-ci, 0),
@@ -188,7 +187,7 @@ for L in L_vec:
 	plt.plot(M_vec_theo, prob_bound_naive,
 		color='r', linestyle="--", linewidth=3, label="Lipschitz")
 	plt.plot(M_vec_theo, prob_bound_diffeo,
-		color='g', linestyle="-.", linewidth=3, label="(New)")
+		color='g', linestyle="-.", linewidth=3, label="Diffeo.")
 	plt.plot(np.append(M_vec_exp, M_max),
 		np.append(dists_exp_prob_violations, 1), 
 		color='b', linewidth=3) # Replot
@@ -216,4 +215,4 @@ for L in L_vec:
 		plt.legend(fontsize=17, loc='upper right',
 			bbox_to_anchor=(0.83, 0.75))
 	plt.show()
-	# ----------------------
+# ----------------------
