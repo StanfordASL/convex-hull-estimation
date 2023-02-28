@@ -2,7 +2,7 @@
 
 ## About
 
-Code for our work on geometric reconstruction using convex hull approximations (T. Lew, R. Bonalli, L. Janson, M. Pavone, "Estimating the convex hull of the image of a set with smooth boundary: error bounds and applications").
+Code for our work on geometric reconstruction using convex hull approximations (T. Lew, R. Bonalli, L. Janson, M. Pavone, "Estimating the convex hull of the image of a set with smooth boundary: error bounds and applications", available at [https://arxiv.org/abs/2302.13970](https://arxiv.org/abs/2302.13970), 2023).
 * The geometric inference experiment (Section 5.1) can be reproduced by running
 ``python sensitivity_analysis.py``
 * The robust planning experiment (Section 5.4) can be reproduced by running
