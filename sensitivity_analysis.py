@@ -15,7 +15,7 @@ B_generate_results = True
 
 # ----------------------
 epsilon = 1e-2 # desired accuracy
-L_vec = np.array([1, 2]) # Lipschitz constant
+L_vec = np.array([1, 3]) # Lipschitz constant
 # ----------------------
 
 # ----------------------
@@ -72,8 +72,7 @@ def bound_conservatism_prob_naive(r, L, epsilon, M):
 def bound_conservatism_prob_diffeo(r, L, epsilon, M):
 	# constants
 	Lip_f = max(L, 1)
-	Lip_f_inv = max(1 / L, 1)
-	Rdiffeo = 1 / ((Lip_f / r) * (Lip_f * Lip_f_inv)**2)
+	Rdiffeo = 1 / (Lip_f / r)
 
 	# delta value required to achieve epsilon-accuracy
 	delta = np.sqrt(epsilon * 2 * Rdiffeo)
@@ -178,16 +177,16 @@ for L in L_vec:
 	M_max = 30000
 	plt.plot(np.append(M_vec_exp, M_max),
 		np.append(dists_exp_prob_violations, 1), 
-		color='b', linewidth=3, label="Average")
+		color='b', linewidth=3, label="Empirical")
 	ci = conf_bounds_of_percentage(dists_exp_prob_violations, N_runs)
 	plt.fill_between(M_vec_exp,
 		np.maximum(dists_exp_prob_violations-ci, 0),
 		np.minimum(dists_exp_prob_violations+ci, 1),
 		color='b', alpha=.2)
 	plt.plot(M_vec_theo, prob_bound_naive,
-		color='r', linestyle="--", linewidth=3, label="Lipschitz")
+		color='r', linestyle="--", linewidth=3, label="1st order")
 	plt.plot(M_vec_theo, prob_bound_diffeo,
-		color='g', linestyle="-.", linewidth=3, label="Diffeo.")
+		color='g', linestyle="-.", linewidth=3, label="2nd order")
 	plt.plot(np.append(M_vec_exp, M_max),
 		np.append(dists_exp_prob_violations, 1), 
 		color='b', linewidth=3) # Replot

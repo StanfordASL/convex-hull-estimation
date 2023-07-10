@@ -34,7 +34,7 @@ n_u = 2 # (ux, uy) - number of control variables
 n_pos = 2 # number of position variables
 n_obs = 2 # number of obstacles (two halfplanes)
 
-epsilon_padding = 0.04 # constraints padding
+epsilon_padding = 0.025 # constraints padding
 
 # constants for uncertain parameters
 gamma = 9.0 / 4.0 # rescaling coefficient

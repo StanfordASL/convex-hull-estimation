@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from src.fibonacci import fibonacci_lattice
 
 M = 100 # number of points
-# M = 1300 # (Lipschitz case)
+# M = 3300 # (Lipschitz case)
 F_max = 0.005 # maximum magnitude of external force
 r = np.sqrt(2) * F_max # radius of input ball
 pts = fibonacci_lattice(r, M)
@@ -53,14 +53,8 @@ M_max = 1.0 / mass_min # maximum mass
 L_bar = (T**2 / (np.sqrt(2.0) * gamma)) * (
 	max(gamma * M_max + F_max, u_max + F_max))
 H_bar = T**2 / (2.0 * gamma)
-alpha_delta = 1 + (1 - np.sqrt(1 - 2*delta / r)) / (
-	1 + np.sqrt(1 - 2 * delta / r))
-R_submersion = 1.0 / (alpha_delta**2 * (
-	L_bar / r + H_bar))
-
 epsilon_lipschitz = L_bar * delta
-epsilon_submersion = delta**2 / (
-	2 * R_submersion)
+epsilon_submersion = 0.5 * (L_bar / r + H_bar) * delta**2
 
 print("Hausdorff distance error bound (Lipschitz) =",
 	epsilon_lipschitz)
